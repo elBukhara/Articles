@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block body %}
+<main class="container mt-5">
+
+  <h2>Add New Article</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ form.media }} <!-- Important for rendering CKEditor -->
+    <button type="submit">Save</button>
+  </form>
+
+</main>
+{% endblock %}

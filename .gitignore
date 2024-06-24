@@ -1,0 +1,6 @@
+.venv
+db.sqlite3
+media/images/articles/
+__pycache__
+.vs
+.idea
