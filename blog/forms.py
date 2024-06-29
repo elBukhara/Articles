@@ -1,6 +1,5 @@
 from django import forms
 from django.shortcuts import render, redirect
-from . views import articles_view
 
 from . models import Article, User
 
@@ -23,7 +22,7 @@ def create_article(request):
             article = form.save(commit=False)
             article.author = request.user
             article.save()
-            articles_view(request)
+            return redirect('blog:articles')
     else:
         form = ArticleForm()
 
