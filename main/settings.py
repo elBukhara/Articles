@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #
     'ckeditor',
+    'widget_tweaks',
     # 'django_ckeditor_5',
     
     #

@@ -1,4 +1,6 @@
 {% extends "layout.html" %}
+{% load widget_tweaks %}
+
 {% load static %}
 
 
@@ -9,9 +11,21 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    {{ form.media }} <!-- Important for rendering CKEditor -->
-    <button type="submit">Save</button>
+    {{ form.media }}
+    <button type="submit" class="btn btn-success">Save</button>
   </form>
+  
+  <!-- <form method="post">
+    {% csrf_token %}
+    {{ form.media }}
+
+    <div class="form-group">
+        <label for="{{ form.content.id_for_label }}">Content:</label>
+        {% render_field form.content class="form-control" %}
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+  </form> -->
 
 </main>
 {% endblock %}
