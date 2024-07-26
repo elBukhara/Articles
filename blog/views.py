@@ -10,8 +10,8 @@ def articles_view(request):
 # def article_view(request):
 #     return render(request, 'blog/article.html')
 
-def article_view(request, pk):
-    article = Article.objects.get(id=pk)
+def article_view(request, slug):
+    article = Article.objects.get(slug=slug)
     
     context = {
         'article': article
