@@ -1,6 +1,12 @@
 from django.contrib import admin
+from django.db import models
+from django.forms import DateTimeInput
+from django.contrib.admin import ModelAdmin
+from .models import Article, Tag
 
-from . models import Article, Tag
+class ArticleAdmin(ModelAdmin):
+    list_display = ['title', 'status', 'publish_date']
+    # fields = ['title', 'content', 'publish_date', 'status', 'tags', 'image', 'meta_description', 'keywords', 'author']
 
-admin.site.register(Article)
+admin.site.register(Article, ArticleAdmin)
 admin.site.register(Tag)

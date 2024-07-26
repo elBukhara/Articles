@@ -47,10 +47,3 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-
-def create_slug_from_title(title):
-    """
-    Helper function to create a URL slug from a title.
-    """
-    slug = title.replace(' ', '-').lower()
-    return slug
