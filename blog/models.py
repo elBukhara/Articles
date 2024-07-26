@@ -15,7 +15,7 @@ class Article(models.Model):
     publish_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     tags = models.ManyToManyField('Tag', blank=True)
-    image = models.ImageField(upload_to='images/articles/%Y/%m/%d', blank=True)
+    image = models.ImageField(upload_to='cover_image', blank=True)
     meta_description = models.TextField(blank=True, null=True)
     keywords = models.TextField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -24,10 +24,23 @@ class Article(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        # Automatically set the slug based on the title if it's not already set
+        # Check if slug needs to be auto-generated
         if not self.slug:
-            self.slug = create_slug_from_title(self.title)
+            original_slug = self.title.replace(' ', '-').lower()
+            # Check for uniqueness
+            if Article.objects.filter(slug=original_slug).exists():
+                # Append a number to make it unique
+                count = 1
+                while Article.objects.filter(slug=f"{original_slug}-{count}").exists():
+                    count += 1
+                self.slug = f"{original_slug}-{count}"
+            else:
+                self.slug = original_slug
         super(Article, self).save(*args, **kwargs)
+    
+    class Meta:
+        ordering = ['-publish_date']
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)

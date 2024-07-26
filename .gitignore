@@ -1,6 +1,6 @@
 .venv
 db.sqlite3
-media/images/articles/
+media
 __pycache__
 .vs
 .idea

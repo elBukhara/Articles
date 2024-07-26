@@ -2,8 +2,6 @@ from django.shortcuts import render
 from . models import Article
 
 
-# Create your views here.
-
 def articles_view(request):
     articles = Article.objects.all()
     
@@ -19,4 +17,4 @@ def article_view(request, pk):
         'article': article
     }
     
-    return render(request, 'blog/article_testing.html', context)
+    return render(request, 'blog/article.html', context)
