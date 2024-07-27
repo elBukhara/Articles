@@ -15,8 +15,8 @@ class Article(models.Model):
     publish_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     tags = models.ManyToManyField('Tag', blank=True)
-    cover_image = models.ImageField(upload_to='cover_image', blank=True)
-    meta_description = models.TextField(blank=True, null=True)
+    cover_image = models.ImageField(upload_to='cover_image', blank=True, null=True, default='default/cover.jpg')
+    meta_description = models.TextField(blank=False, null=False, default='')
     keywords = models.TextField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
