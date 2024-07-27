@@ -7,7 +7,7 @@ from . models import Article
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'content', 'tags', 'image', 'meta_description', 'keywords']
+        fields = ['title', 'content', 'tags', 'cover_image', 'meta_description', 'keywords']
         widgets = {
             'tags': forms.CheckboxSelectMultiple(),
             'content': forms.Textarea(attrs={'cols': 80, 'rows': 30}),
