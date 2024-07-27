@@ -3,18 +3,24 @@ from . models import Article
 
 
 def articles_view(request):
-    articles = Article.objects.all()
+    banger_article = Article.objects.first()
+    articles = Article.objects.exclude(id=banger_article.id)
     
-    return render(request, 'blog/articles.html', {'articles': articles})
-
-# def article_view(request):
-#     return render(request, 'blog/article.html')
+    content = {
+        'articles': articles,
+        'banger_article': banger_article
+    }
+    
+    # article_with_cover = Article.articles_with_default_cover_image()
+    # article_without_cover = Article.articles_with_own_cover_image()
+    
+    return render(request, 'blog/articles.html', content)
 
 def article_view(request, slug):
     article = Article.objects.get(slug=slug)
     
-    context = {
+    content = {
         'article': article
     }
     
-    return render(request, 'blog/article.html', context)
+    return render(request, 'blog/article.html', content)

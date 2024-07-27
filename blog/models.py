@@ -38,6 +38,14 @@ class Article(models.Model):
                 self.slug = original_slug
         super(Article, self).save(*args, **kwargs)
     
+    @classmethod
+    def articles_with_default_cover_image(cls):
+        return cls.objects.filter(cover_image='default/cover.jpg')
+    
+    @classmethod
+    def articles_with_own_cover_image(cls):
+        return cls.objects.exclude(cover_image='default/cover.jpg')
+    
     class Meta:
         ordering = ['-publish_date']
 
