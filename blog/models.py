@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from django.template.defaultfilters import slugify
 
 from ckeditor.fields import RichTextField
 
@@ -20,13 +21,16 @@ class Article(models.Model):
     keywords = models.TextField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-publish_date']
+
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
         # Check if slug needs to be auto-generated
         if not self.slug:
-            original_slug = self.title.replace(' ', '-').lower()
+            original_slug = slugify(self.title)
             # Check for uniqueness
             if Article.objects.filter(slug=original_slug).exists():
                 # Append a number to make it unique
@@ -46,9 +50,23 @@ class Article(models.Model):
     def articles_with_own_cover_image(cls):
         return cls.objects.exclude(cover_image='default/cover.jpg')
     
-    class Meta:
-        ordering = ['-publish_date']
-
+    @classmethod
+    def get_banger_article(cls):
+        """
+        Returns the first article that meets the following criteria:
+        - Description length is exactly 100 characters.
+        - Has its own cover image (not the default one).
+        - Content text length is more than 100 characters.
+        """
+        try:
+            articles = cls.objects.exclude(cover_image='default/cover.jpg')
+            
+            banger_articles = [article for article in articles if len(article.meta_description) > 100 and article.content and len(article.content.strip()) > 1000]
+            
+            # Return the first matching article, or None if no articles match
+            return banger_articles[0] if banger_articles else None
+        except IndexError:
+            return None
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
