@@ -4,7 +4,6 @@ from django.db import models
 from users.models import User
 from django.template.defaultfilters import slugify
 
-from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 
 class Article(models.Model):

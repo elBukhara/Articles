@@ -9,23 +9,14 @@ class ArticleForm(forms.ModelForm):
         model = Article
         fields = ['title', 'content', 'tags', 'cover_image', 'meta_description', 'keywords']
         widgets = {
-            'tags': forms.CheckboxSelectMultiple(),
-            'content': forms.Textarea(attrs={'cols': 80, 'rows': 30}),
-            'meta_description': forms.Textarea(attrs={'cols': 80, 'rows': 3}),
-            'keywords': forms.Textarea(attrs={'cols': 80, 'rows': 3}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'tags': forms.SelectMultiple(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'cols': 80, 'rows': 30, 'class': 'form-control'}),
+            'cover_image': forms.FileInput(attrs={'class': 'form-control'}),
+            'meta_description': forms.Textarea(attrs={'cols': 80, 'rows': 3, 'class': 'form-control'}),
+            'keywords': forms.Textarea(attrs={'cols': 80, 'rows': 3, 'class': 'form-control'}),
         }
 
-    def render(self, *args, **kwargs):
-        rendered_form = super().render(*args, **kwargs)
-        return mark_safe(rendered_form.replace('<textarea', '<textarea class="form-control"'))
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field_obj in self.fields.items():
-            if isinstance(field_obj.widget, forms.TextInput):
-                field_obj.widget.attrs['class'] = 'form-control'
-            elif isinstance(field_obj.widget, forms.Select):
-                field_obj.widget.attrs['class'] = 'form-select'
 
 
 def create_article(request):
