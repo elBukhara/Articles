@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #
     'ckeditor',
+    'ckeditor_uploader',
     'widget_tweaks',
     # 'django_ckeditor_5',
     
@@ -125,7 +126,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 #ckeditor upload path
-CKEDITOR_UPLOAD_PATH="uploads/"
+CKEDITOR_UPLOAD_PATH="article_uploads/"
 
 
 # Default primary key field type

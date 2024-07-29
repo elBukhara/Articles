@@ -1,10 +1,11 @@
+import random
+
 from django.db import models
 from users.models import User
 from django.template.defaultfilters import slugify
 
-import random
-
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Article(models.Model):
     STATUS_CHOICES = [
@@ -14,7 +15,7 @@ class Article(models.Model):
     
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=False)
-    content = RichTextField(blank=True, null=True)
+    content = RichTextUploadingField(blank=True, null=True)
     publish_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     tags = models.ManyToManyField('Tag', blank=True)
