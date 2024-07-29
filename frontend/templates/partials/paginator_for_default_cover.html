@@ -1,0 +1,40 @@
+<nav aria-label="Pagination">
+    <hr class="my-0" />
+    <ul class="pagination justify-content-center my-4">
+        {% if articles_with_default_cover.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page_default_cover={{ articles_with_default_cover.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+        {% for i in articles_with_default_cover.paginator.page_range %}
+            {% if i == articles_with_default_cover.number %}
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{ i }}</span>
+                </li>
+            {% elif i > articles_with_default_cover.number|add:'-2' and i < articles_with_default_cover.number|add:'2' %}
+                <li class="page-item"><a class="page-link" href="?page_default_cover={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if articles_with_default_cover.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page_default_cover={{ articles_with_default_cover.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

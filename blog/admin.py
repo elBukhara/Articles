@@ -5,7 +5,7 @@ from django.contrib.admin import ModelAdmin
 from .models import Article, Tag
 
 class ArticleAdmin(ModelAdmin):
-    list_display = ['title', 'status', 'publish_date']
+    list_display = ['title', 'status', 'publish_date', 'cover_image']
     # fields = ['title', 'content', 'publish_date', 'status', 'tags', 'cover_image', 'meta_description', 'keywords', 'author']
 
 admin.site.register(Article, ArticleAdmin)
