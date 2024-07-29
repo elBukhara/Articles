@@ -2,6 +2,8 @@ from django.db import models
 from users.models import User
 from django.template.defaultfilters import slugify
 
+import random
+
 from ckeditor.fields import RichTextField
 
 class Article(models.Model):
@@ -64,7 +66,7 @@ class Article(models.Model):
             banger_articles = [article for article in articles if len(article.meta_description) > 100 and article.content and len(article.content.strip()) > 1000]
             
             # Return the first matching article, or None if no articles match
-            return banger_articles[0] if banger_articles else None
+            return random.choice(banger_articles[:3]) if banger_articles else None
         except IndexError:
             return None
 

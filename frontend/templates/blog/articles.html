@@ -45,7 +45,7 @@
             <article class="mb-4">
                 <h2 class="h2 font-weight-bold">{{ article.title }}</h2>
                 <p class="text-muted">{{ article.publish_date}} by <a href="#!">{{ article.author}}</a></p>
-                <p>{{ article.meta_description }}</p>
+                <p>{{ article.meta_description }}</p><a href="{% url 'blog:article' article.slug %}">Read more →</a>
             </article>
             {% endfor %}
 
