@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 mb-3 order-md-last">
+            <div class="position-sticky" style="top: 1rem;">
+                <!-- Search widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Search</div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Categories widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Categories</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#!">Web Design</a></li>
+                                    <li><a href="#!">HTML</a></li>
+                                    <li><a href="#!">Freebies</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#!">JavaScript</a></li>
+                                    <li><a href="#!">CSS</a></li>
+                                    <li><a href="#!">Tutorials</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-8 mb-3 ">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for category in categories %}
+                <div class="col">
+                  <div class="card">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAANlBMVEWAgIBBQUE9PT2Dg4N/f39vb294eHhhYWFHR0dSUlJOTk5ZWVlnZ2d8fHxwcHA8PDxcXFxFRUV1oaE7AAACZUlEQVR4nO3c7Y6jIBhAYQR0bK1S7/9mt5WudQWdVtkYX87zc6omnvhBUEcpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF+x1rRVWu3R+7SfqZ1Oxzl3O3qPErgWSWkBTUzyJuboXdrLpG4i4dwZm+y/mLyOk6P3aD/fpP9JoJHVpH6cRLt1WlYTm2BTJU0CNAkNTdz578X/sYlVKTZ6hNRNivo6upz0kEneZKLPuYlfO2hS59vEvlamyXQb/kAR2WT79NIQRWSTYKc+ZqKrZ91E0yREk6yabJuuFn3uVPeNs0l3uU22Tiwpv+8ym9hNGNsvo0lIZpPVi8baEsNvIpt0k/mgubrzS8fJve+UrljkymHphVHdsCmZTVbGsdo3WfhVRVenCU3+Jfh68nuTvo7pVXT1LJpY08bGuqo1Wc6z+eNErT3HyrbJCpqEcm2S3dj+g/vOLU5FV8+iiTXR2cnC5XzfYcz2cRPBc9QcJ96XTaLXE+dUdPVMmnRVF6Oiq+fR5LlYbHAi910LxrEeTUI0CX03jlXt3GTyIM8m4fjEde8o2TaZLeI6k32T+RK6e28q1ybBn8U3WX4OqBeeAz7OnXFTIptUzaJ7458XBz9U72lrkU2W3ytQ43sFwTLC78U70SQkpYmhyZy1r++Lk31LO9Wcson62+SSwPwrf12es4lSTZFKcOocvWtbme0v2f+WqDp637ZL/I8txiQ3k+LCfYz2+hzS94mL1N1ZLyZPxtzqwiX8D0JOF5fyMeI3p/3o+nGgJLgPB54bPm8SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDp/AHd/jSO2+6C8gAAAABJRU5ErkJggg=="
+                     class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title" id="{{ category.name }}">{{ category.name }}</h5>
+                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+
+{% endblock %}

@@ -6,6 +6,12 @@ from django.template.defaultfilters import slugify
 
 from ckeditor_uploader.fields import RichTextUploadingField
 
+class Category(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Article(models.Model):
     STATUS_CHOICES = [
         ('draft', 'Draft'),
@@ -17,7 +23,7 @@ class Article(models.Model):
     content = RichTextUploadingField(blank=True, null=True)
     publish_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
-    tags = models.ManyToManyField('Tag', blank=True)
+    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
     cover_image = models.ImageField(upload_to='cover_image', blank=True, null=True, default='default/cover.jpg')
     meta_description = models.TextField(blank=False, null=False, default='')
     keywords = models.TextField(blank=True, null=True)
@@ -69,9 +75,3 @@ class Article(models.Model):
             return random.choice(banger_articles[:3]) if banger_articles else None
         except IndexError:
             return None
-
-class Tag(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return self.name

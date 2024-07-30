@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . models import Article
+from . models import Article, Category
 from django.core.paginator import Paginator
 
 def articles_view(request):
@@ -40,3 +40,12 @@ def article_view(request, slug):
     }
     
     return render(request, 'blog/article.html', content)
+
+def category_list(request):
+    categories = Category.objects.all()
+    content = {
+        'categories': categories
+    }
+    
+    
+    return render(request, 'blog/category_list.html', content)
