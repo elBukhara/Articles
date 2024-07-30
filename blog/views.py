@@ -14,7 +14,7 @@ def articles_view(request):
     
     articles_with_default_cover = Article.articles_with_default_cover_image()
     
-    p2 = Paginator(articles_with_default_cover, 2)
+    p2 = Paginator(articles_with_default_cover, 3)
     page_default_cover = request.GET.get('page_default_cover')
     articles_with_default_cover = p2.get_page(page_default_cover)
     

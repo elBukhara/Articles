@@ -26,6 +26,7 @@ def create_article(request):
             article = form.save(commit=False)
             article.author = request.user
             article.save()
+            article.tags.set(form.cleaned_data['tags'])
             return redirect('blog:articles')
     else:
         form = ArticleForm()
