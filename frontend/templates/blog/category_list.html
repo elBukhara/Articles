@@ -3,7 +3,7 @@
 
 
 {% block body %}
-<div class="container mt-5">
+<div class="container my-5">
     <div class="row">
         <div class="col-md-4 mb-3 order-md-last">
             <div class="position-sticky" style="top: 1rem;">
@@ -12,8 +12,9 @@
                     <div class="card-header">Search</div>
                     <div class="card-body">
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                            <input class="form-control" id="search-input" type="text" placeholder="Enter search term..." 
+                            aria-label="Enter search term..." aria-describedby="button-search" />
+                            <button class="btn btn-primary" id="search-button" type="button">Go!</button>
                         </div>
                     </div>
                 </div>
@@ -60,8 +61,33 @@
             </div>
         </div>
 
-        
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-input');
+        console.log(searchInput)
+        const searchButton = document.getElementById('search-button');
+        
+        searchButton.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            let categoryInput = searchInput.value;
+            console.log(categoryInput)
+
+            let categoryElement = document.getElementById(categoryInput);
+            if (categoryElement) {
+                categoryElement.scrollIntoView({behavior: 'smooth'});
+            } else {
+                alert('Category not found.');
+            }
+
+            searchInput.value = '';            
+        });
+    });
+
+</script>
+
 
 {% endblock %}
