@@ -8,9 +8,21 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    image = models.ImageField(upload_to='category_image', blank=True, null=True, default='default/category.jpg')
+    meta_description = models.TextField(blank=True, null=True)
+    # slug_field = models.SlugField(max_length=200, unique=True, blank=True, null=False)
+    
+    class Meta():
+        ordering = ['name']
 
     def __str__(self):
         return self.name
+    
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.name)
+    #     super(Category, self).save(*args, **kwargs)
+            
 
 class Article(models.Model):
     STATUS_CHOICES = [
