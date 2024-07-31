@@ -47,5 +47,17 @@ def category_list(request):
         'categories': categories
     }
     
-    
     return render(request, 'blog/category_list.html', content)
+
+def category_view(request, slug):
+    category = Category.objects.get(slug=slug)
+    articles_with_own_cover = Article.articles_with_own_cover_image().filter(category=category)
+    articles_with_default_cover = Article.articles_with_default_cover_image().filter(category=category)
+    
+    content = {
+        'category': category,
+        'articles_with_own_cover': articles_with_own_cover,
+        'articles_with_default_cover': articles_with_default_cover,
+    }
+    
+    return render(request, 'blog/category.html', content)
