@@ -5,17 +5,45 @@
 
 {% block body %}
 <main class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-6">
-      <h2>Add New Article</h2>
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {{ form.media }}
-        <button type="submit" class="btn btn-success">Save</button>
-      </form>
-    </div>
-  </div>
+    <h2>Add New Article</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.media }}
+
+      <div class="row">
+        <div class="col-lg-8">
+          <p class="form-group">
+            {{ form.title.label_tag }} {{ form.title }}
+          </p>
+          <p class="form-group">
+            {{ form.content.label_tag }} {{ form.content }}
+          </p>
+          <p class="form-group">
+            {{ form.meta_description.label_tag }} {{ form.meta_description }}
+          </p>
+          <p class="form-group">
+            {{ form.keywords.label_tag }} {{ form.keywords }}
+          </p>
+        </div>
+
+        <div class="col-lg-4">
+          <p class="form-group">
+            {{ form.category.label_tag }} {{ form.category }}
+          </p>
+          <p class="form-group">
+            {{ form.cover_image.label_tag }} {{ form.cover_image }}
+          </p>
+          <p class="form-group">
+            {{ form.status.label_tag }} {{ form.status }}
+          </p>
+          <p class="form-group">
+            {{ form.hashtags.label_tag }} {{ form.hashtags }}
+          </p>
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
 </main>
 
 {% endblock %}
