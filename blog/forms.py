@@ -6,7 +6,7 @@ from . models import Article
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'content', 'category', 'cover_image', 'meta_description', 'keywords']
+        fields = ['title', 'content', 'category', 'cover_image', 'meta_description', 'keywords', 'status']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-control'}),
@@ -14,6 +14,7 @@ class ArticleForm(forms.ModelForm):
             'cover_image': forms.FileInput(attrs={'class': 'form-control'}),
             'meta_description': forms.Textarea(attrs={'cols': 80, 'rows': 3, 'class': 'form-control'}),
             'keywords': forms.Textarea(attrs={'cols': 80, 'rows': 3, 'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'})
         }
     
     def __init__(self, *args, **kwargs):
@@ -24,7 +25,7 @@ class ArticleForm(forms.ModelForm):
             self.fields['title'].initial = instance.title
             self.fields['content'].initial = instance.content
             self.fields['category'].initial = instance.category_id
-            self.fields['cover_image'].initial = instance.cover_image.url
+            self.fields['cover_image'].initial = instance.cover_image.url if instance.cover_image != 'default/cover.jpg' else 'default/cover.jpg'
             self.fields['meta_description'].initial = instance.meta_description
             self.fields['keywords'].initial = instance.keywords
 
@@ -36,8 +37,7 @@ def create_article(request):
             article = form.save(commit=False)
             article.author = request.user
             article.save()
-            article.category.set(form.cleaned_data['tags'])
-            return redirect('blog:articles')
+            return redirect('blog:article', slug=article.slug)
     else:
         form = ArticleForm()
 
@@ -50,7 +50,7 @@ def edit_article(request, slug):
         form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid():
             form.save()
-            return redirect('blog:articles')  # Redirect to the list of articles or wherever appropriate
+            return redirect('blog:article', slug=slug)
     else:
         form = ArticleForm(instance=article)
 
