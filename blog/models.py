@@ -6,6 +6,12 @@ from django.template.defaultfilters import slugify
 
 from ckeditor_uploader.fields import RichTextUploadingField
 
+class Hashtag(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     image = models.ImageField(upload_to='category_image', blank=True, null=True, default='default/cover.jpg')
@@ -39,6 +45,7 @@ class Article(models.Model):
     cover_image = models.ImageField(upload_to='cover_image', blank=True, null=True, default='default/cover.jpg')
     meta_description = models.TextField(blank=False, null=False, default='')
     keywords = models.TextField(blank=True, null=True)
+    hashtags = models.ManyToManyField('Hashtag', blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:

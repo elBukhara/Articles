@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . models import Article, Category
+from . models import Article, Category, Hashtag
 from django.core.paginator import Paginator
 
 def articles_view(request):
@@ -33,9 +33,13 @@ def article_view(request, slug):
         cover_image = None
     else:
         cover_image = article.cover_image
+        
+    hashtags = article.hashtags.all()
+    print(hashtags)
     
     content = {
         'article': article,
+        'hashtags': hashtags,
         'cover_image': cover_image
     }
     

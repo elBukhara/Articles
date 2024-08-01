@@ -15,8 +15,9 @@
                     <!-- Post meta content-->
                     <div class="text-muted fst-italic mb-2">Posted on {{ article.publish_date }} by {{ article.author }}</div>
                     <!-- Post categories-->
-                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
+                    {% for hashtag in hashtags  %}
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#">{{ hashtag.name }}</a>
+                    {% endfor %}
                 </header>
                 
                 {% if cover_image %}
