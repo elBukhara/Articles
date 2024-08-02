@@ -26,9 +26,9 @@ def search_box(request):
     
     content = {
         'articles_found_in_title': articles_found_in_title,
-        'articles_found_in_content': articles_found_in_content
+        'articles_found_in_content': articles_found_in_content,
+        'query': query
     }
-    print(content)
         
     return render(request, 'blog/results.html', content)
 

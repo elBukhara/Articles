@@ -13,11 +13,7 @@
                 <div class="card mb-4">
                     <div class="card-header">Search</div>
                     <div class="card-body">
-                        <div class="input-group">
-                            <input class="form-control" id="search-input" type="text" placeholder="Enter search term..." 
-                            aria-label="Enter search term..." aria-describedby="button-search" />
-                            <button class="btn btn-primary" id="search-button" type="button">Go!</button>
-                        </div>
+                        {% include 'partials/search_box.html' %}
                     </div>
                 </div>
                 <!-- Categories widget-->
