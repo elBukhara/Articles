@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block body %}
+<div class="container">
+
+    {% if articles_found_in_title %}
+        <h2>Results found in title</h2>
+        {% for article in articles_found_in_title %}
+            <li>{{ article.title }}</li>
+        {% endfor %}
+    {% endif %}
+
+    {% if articles_found_in_content %}
+        <h1>Results found in content of other articles</h1>
+        {% for article in articles_found_in_content %}
+            <li>{{ article.title }}</li>
+        {% endfor %}
+    {% endif %}
+
+</div>
+
+{% endblock %}

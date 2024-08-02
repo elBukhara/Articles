@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . models import Article, Category, Hashtag
+from . models import Article, Category
 from django.core.paginator import Paginator
 
 def articles_view(request):
