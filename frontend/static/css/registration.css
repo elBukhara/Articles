@@ -1,0 +1,50 @@
+.form-signin {
+    width: 100%;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+#repeat-password {
+    margin-bottom: 12px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+    
+    .form-signin .container {
+      max-width: 800px;
+    }
+}
+
+.my-btn-2{
+    border-radius: 30px;
+    padding: 5px 10px;
+    border: 1px solid #6a6865;
+    background: #6a6865;
+    color: white;
+    transition: 0.75s;
+}
+.my-btn-2:hover{
+    background: transparent;
+    color: #6a6865;
+}

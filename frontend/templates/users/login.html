@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if message %}
+  <div class="alert alert-danger" role="alert">
+    {{ message }}
+  </div>
+{% endif %}
+
+<main class="form-signin mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-registration/draw1.png" class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-4">
+        <form action="{% url 'users:login' %}" method="post">
+          {% csrf_token %}
+
+          <h1 class="h3 mb-3 fw-normal text-center">Sign In</h1>
+          <div class="form-floating">
+            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="name@example.com" autocomplete="off" required>
+            <label for="floatingInput">Username</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+            <label for="floatingPassword">Password</label>
+          </div>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="w-100 btn-lg my-btn-2" type="submit">Sign in</button>
+          <p class="mt-5 mb-3 text-muted text-center">Don't have an account?
+            <a class="d-block" href="{% url 'users:register' %}">Register here.</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const footer = document.querySelector('#footer');
+    footer.style.display = 'none';
+
+  })
+
+</script>
+{% endblock %}

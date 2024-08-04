@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if message %}
+  <div class="alert alert-danger" role="alert">
+    {{ message }}
+  </div>
+{% endif %}
+
+<main class="form-signin mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-registration/draw1.png" class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-4">
+        <form action="{% url 'users:register' %}" method="post">
+          {% csrf_token %}
+
+          <h1 class="h3 mb-3 fw-normal text-center">Register</h1>
+          <div class="form-floating">
+            <input type="text" name="username" class="form-control" id="floatingInput3" placeholder="Name" autocomplete="new-password" >
+            <label for="floatingInput3 ">Name</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" autocomplete="new-password">
+            <label for="floatingInput">Email address</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+
+          <div class="form-floating" id="repeat-password">
+            <input type="password" name="confirmation" class="form-control" id="floatingPassword2" placeholder="Repeat Password" >
+            <label for="floatingPassword2">Repeat Password</label>
+          </div>
+
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="w-100 btn-lg my-btn-2" type="submit">Register</button>
+          
+          <p class="mt-5 mb-3 text-muted text-center">Already have an account?
+            <a class="d-block" href="{% url 'users:login' %}">Log In here.</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<link rel="stylesheet" href="{% static 'css/registration.css' %}">
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const footer = document.querySelector('#footer');
+    footer.style.display = 'none';
+
+  })
+
+</script>
+
+{% endblock %}
