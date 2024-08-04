@@ -20,18 +20,13 @@
                 <div class="sidebar-box mt-3">
                     <h4 class="heading">Categories</h4>
                     <ul class="categories">
+                        {% for category in categories_with_article_count %}
                         <li>
-                            <a href="#">Food <span>(12)</span></a>
+                            <a href="{% url 'users:users_category' author.id category.category__slug %}">
+                                {{ category.category__name }} <span>({{ category.article_count }})</span>
+                            </a>
                         </li>
-                        <li>
-                            <a href="#">Travel <span>(12)</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Sports <span>(12)</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Books <span>(12)</span></a>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
     
@@ -59,6 +54,8 @@
             </div>
         </div>
         <div class="col-md-8">
+            {% block main %}
+            
             <h2>About Me:</h2>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam ex dolores voluptatum animi voluptatibus provident similique id accusamus aspernatur quam fuga consequatur, laboriosam laborum recusandae quis, qui vitae reprehenderit impedit? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam ex dolores voluptatum animi voluptatibus provident similique id accusamus aspernatur quam fuga consequatur, laboriosam laborum recusandae quis, qui vitae reprehenderit impedit? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam ex dolores voluptatum animi voluptatibus provident similique id accusamus aspernatur quam fuga consequatur, laboriosam laborum recusandae quis, qui vitae reprehenderit impedit?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam ex dolores voluptatum animi voluptatibus provident similique id accusamus aspernatur quam fuga consequatur, laboriosam laborum recusandae quis, qui vitae reprehenderit impedit? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam ex dolores voluptatum animi voluptatibus provident similique id accusamus aspernatur quam fuga consequatur, laboriosam laborum recusandae quis, qui vitae reprehenderit impedit? Lorem 
             </p>
@@ -106,6 +103,8 @@
             </div>
             {% endif %}
 
+            {% endblock %}
+            
         </div>
     </div>
 </div>
