@@ -7,10 +7,11 @@ from .models import User
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'bio', 'profile_picture']
+        fields = ['username', 'bio', 'location', 'profile_picture']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'bio': forms.Textarea(attrs={'cols': 80, 'rows': 20, 'class': 'form-control'}),
+            'location': forms.TextInput(attrs={'class': 'form-control'}),
             'profile_picture': forms.FileInput(attrs={'type': "file", 'id': "id_profile_picture", 'name': "profile_picture", 'class': "form-control"})
         }
 

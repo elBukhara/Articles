@@ -1,0 +1,71 @@
+<div class="bio text-center mt-2 mb-3">
+    <img src="{{author.profile_picture.url}}" class="text-center" alt="Profile Picture">
+    <h5 class="card-title">Admin Serth</h5>
+    
+    {% if author.location %}
+    <h6 class="text-muted mb-2">{{ author.location}}</h6>
+    {% endif %}
+
+    {% if request.user == author %}
+    <a href="{% url 'users:edit_profile' %}" class="btn btn-outline-primary">Edit Profile</a>
+    {% elif request.user.is_authenticated %}
+        {% if is_following %}
+            <a href="{% url 'users:unfollow_user' author.id %}" class="btn btn-outline-primary">Unfollow</a>
+        {% else %}
+            <a href="{% url 'users:follow_user' author.id %}" class="btn btn-outline-primary">Follow</a>
+        {% endif %}
+    {% endif %}
+    
+    <div class="d-flex justify-content-between align-items-center mt-4 px-4">
+        <div class="stats">
+            <h6>Followers</h6>
+            <span>{{ followers_count }}</span>
+        </div>
+        <div class="stats">
+            <h6>Following</h6>
+            <span>{{ following_count }}</span>
+        </div>
+        <div class="stats">
+            <h6>Articles</h6>
+            <span>{{ articles_count}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar-box mb-3">
+    <h4 class="heading">Categories</h4>
+    <ul class="categories">
+        {% if categories_with_article_count %}
+        {% for category in categories_with_article_count %}
+        <li>
+            <a href="{% url 'users:users_category' author.id category.category__slug %}">
+                {{ category.category__name }} <span>({{ category.article_count }})</span>
+            </a>
+        </li>
+        {% endfor %}
+        {% else %}
+        <li>
+            <a href="#">
+                No categories yet <span>0</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+
+<div class="sidebar-box mb-3">
+    <h4 class="heading">Tags</h4>
+    <ul class="tags">
+        {% if articles_in_hashtags %}
+        {% for hashtag in articles_in_hashtags  %}
+        <li>
+            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'users:users_hashtag' author.id hashtag.id %}">{{ hashtag.name }}</a>
+        </li>
+        {% endfor %}
+        {% else %}
+        <li>
+            <a class="badge bg-secondary text-decoration-none link-light" href="#">No Hashtags yet</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>

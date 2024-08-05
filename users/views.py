@@ -1,13 +1,13 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from blog.models import Article, Category, Hashtag
 from .models import User
 
 
-def get_author_data(author):
+def get_author_data(request, author):
     """
     Retrieves data related to a specific author.
     Args:
@@ -23,15 +23,23 @@ def get_author_data(author):
     categories_with_article_count = articles.filter(author=author) \
         .values('category__name', 'category__slug') \
         .annotate(article_count=Count('id')) \
-        .order_by('-article_count')
-    categories_with_article_count = categories_with_article_count.exclude(category__name=None)
+        .order_by('-article_count') \
+        .exclude(category__name=None)
     
     articles_in_hashtags =  Hashtag.objects.filter(article__in=articles).values('id', 'name')
+    followers_count = author.get_followers().count()
+    following_count = author.get_following().count()
+    
+    is_following = request.user.is_following(author) if (request.user.is_authenticated and request.user != author) else False
     
     content = {
         'author': author,
         'categories_with_article_count': categories_with_article_count,
-        'articles_in_hashtags': articles_in_hashtags
+        'articles_in_hashtags': articles_in_hashtags,
+        'followers_count': followers_count,
+        'following_count': following_count,
+        'articles_count': articles.filter(status='published').count(),
+        'is_following': is_following
     }
     
     return content
@@ -41,7 +49,7 @@ def profile_view(request, user_id):
     Renders the profile view for a given user ID with corresponding data.
     """
     author = get_object_or_404(User, id=user_id)
-    content = get_author_data(author)
+    content = get_author_data(request, author)
     
     published_articles = Article.objects.filter(author=author, status='published')
     if request.user == author:
@@ -53,7 +61,6 @@ def profile_view(request, user_id):
     
     return render(request, 'users/profile.html', content)
 
-
 def users_category(request, author_id, category_slug):
     """
     Retrieves articles by author and category and renders the corresponding template.
@@ -61,7 +68,8 @@ def users_category(request, author_id, category_slug):
     """
     
     author = get_object_or_404(User, id=author_id)
-    content = get_author_data(author)
+    content = get_author_data(request, author)
+
     
     category = get_object_or_404(Category, slug=category_slug)    
     articles = Article.objects.filter(author=author, category=category)
@@ -72,7 +80,7 @@ def users_category(request, author_id, category_slug):
         'articles': articles,
     })
         
-    return render(request, 'users/category_chosen.html', content)
+    return render(request, 'users/partials/category_chosen.html', content)
 
 def users_hashtag(request, author_id, hashtag_id):
     """
@@ -80,7 +88,7 @@ def users_hashtag(request, author_id, hashtag_id):
     For example: Articles by Author in Hashtag "France 2024"
     """
     author = get_object_or_404(User, id=author_id)
-    content = get_author_data(author)
+    content = get_author_data(request, author)
     
     hashtag = get_object_or_404(Hashtag, id=hashtag_id)
     articles = Article.objects.filter(author=author, hashtags=hashtag)
@@ -90,7 +98,7 @@ def users_hashtag(request, author_id, hashtag_id):
         'articles': articles,
     })
     
-    return render(request, 'users/hashtag_chosen.html', content)
+    return render(request, 'users/partials/hashtag_chosen.html', content)
 
 @login_required
 def delete_profile_picture(request, user_id):
@@ -98,3 +106,15 @@ def delete_profile_picture(request, user_id):
     user.profile_picture = 'default/profile_photo.jpg'
     user.save()
     return HttpResponseRedirect(reverse('users:edit_profile'))
+
+@login_required
+def follow_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    request.user.follow(user)
+    return redirect('users:profile', user_id=user_id)
+
+@login_required
+def unfollow_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    request.user.unfollow(user)
+    return redirect('users:profile', user_id=user_id)

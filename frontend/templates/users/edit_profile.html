@@ -19,6 +19,9 @@
             {{ form.bio.label_tag }} {{ form.bio }}
           </p>
           <p class="form-group">
+            {{ form.location.label_tag }} {{ form.location }}
+          </p>
+          <p class="form-group">
             {{ form.profile_picture.label_tag }} {{ form.profile_picture }}
           </p>
           {% if user.profile_picture != 'default/profile_photo.jpg' %}
