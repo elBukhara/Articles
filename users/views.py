@@ -1,34 +1,35 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count
-from blog.models import Article, Category
+from blog.models import Article, Category, Hashtag
 from .models import User
 
 # TODO: get articles from Author by Hashtag
 
 def get_author_data(author):
     """
-    Retrieves the categories with their respective article counts for a given author.
+    Retrieves data related to a specific author.
     Args:
-        author (User): The author object for whom to retrieve the categories.
+        author (User): The author for whom to retrieve data.
     Returns:
-        QuerySet: A queryset containing the categories with their article counts.
-            Each category is represented as a dictionary with the following keys:
-            - 'category__name' (str): The name of the category.
-            - 'category__slug' (str): The slug of the category.
-            - 'article_count' (int): The number of articles in the category.
-    Note:
-        The queryset is ordered in descending order of article count.
-        Categories with a null name are excluded from the result.
+        dict: A dictionary containing the following keys:
+            - 'author' (User): The author object.
+            - 'categories_with_article_count' (QuerySet): A queryset of categories with the count of articles in each category, ordered by article count in descending order.
+            - 'articles_in_hashtags' (QuerySet): A queryset of hashtags associated with the articles of the author.
     """
-    categories_with_article_count = Article.objects.filter(author=author) \
+    articles = Article.objects.filter(author=author)
+    
+    categories_with_article_count = articles.filter(author=author) \
         .values('category__name', 'category__slug') \
         .annotate(article_count=Count('id')) \
         .order_by('-article_count')
     categories_with_article_count = categories_with_article_count.exclude(category__name=None)
     
+    articles_in_hashtags =  Hashtag.objects.filter(article__in=articles).values('id', 'name')
+    
     content = {
         'author': author,
-        'categories_with_article_count': categories_with_article_count
+        'categories_with_article_count': categories_with_article_count,
+        'articles_in_hashtags': articles_in_hashtags
     }
     
     return content
@@ -70,3 +71,18 @@ def users_category(request, author_id, category_slug):
     })
         
     return render(request, 'users/category_chosen.html', content)
+
+def users_hashtag(request, author_id, hashtag_id):
+    author = get_object_or_404(User, id=author_id)
+    content = get_author_data(author)
+    
+    hashtag = get_object_or_404(Hashtag, id=hashtag_id)
+    articles = Article.objects.filter(author=author, hashtags=hashtag)
+    
+    content.update({
+        'hashtag': hashtag,
+        'articles': articles,
+    })
+    
+    return render(request, 'users/hashtag_chosen.html', content)
+    

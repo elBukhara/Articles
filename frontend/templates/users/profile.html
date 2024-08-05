@@ -5,10 +5,10 @@
 
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-4 pe-5">
-            <div class="position-sticky" style="top: 3rem;">
+        <div class="col-md-4 pe-5 mb-3">
+            <div>
 
-                <div class="bio text-center mt-2">
+                <div class="bio text-center mt-2 mb-3">
                     <img src="https://preview.colorlib.com/theme/wordify/images/person_1.jpg" class="text-center" alt="Profile Picture">
                     <div class="card-body">
                         <h5 class="card-title">Admin Serth</h5>
@@ -16,8 +16,9 @@
                         <a href="#" class="btn btn-primary">Visit Website</a>
                     </div>
                 </div>
-    
-                <div class="sidebar-box mt-3">
+
+                {% if categories_with_article_count %}
+                <div class="sidebar-box mb-3">
                     <h4 class="heading">Categories</h4>
                     <ul class="categories">
                         {% for category in categories_with_article_count %}
@@ -29,28 +30,20 @@
                         {% endfor %}
                     </ul>
                 </div>
-    
-                <div class="sidebar-box">
+                {% endif %}
+                
+                {% if articles_in_hashtags %}
+                <div class="sidebar-box mb-3">
                     <h4 class="heading">Tags</h4>
                     <ul class="tags">
+                        {% for hashtag in articles_in_hashtags  %}
                         <li>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#">Food</a>
+                            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'users:users_hashtag' author.id hashtag.id %}">{{ hashtag.name }}</a>
                         </li>
-                        <li>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#">Food</a>
-                        </li>
-                        <li>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#">Food</a>
-                        </li>
-                        <li>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#">Food</a>
-                        </li>
-                        <li>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#">Food</a>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
-
+                {% endif %}
             </div>
         </div>
         <div class="col-md-8">
