@@ -11,7 +11,7 @@
                 <h5 class="card-title">Admin Serth</h5>
                 <h6 class="text-muted mb-2">Moscow</h6>
                 {% if request.user == author %}
-                <a href="#" class="btn btn-outline-primary">Edit Profile</a>
+                <a href="{% url 'users:edit_profile' %}" class="btn btn-outline-primary">Edit Profile</a>
                 {% else %}
                 <a href="#" class="btn btn-outline-primary">Visit Website</a>
                 {% endif %}
@@ -121,7 +121,7 @@
                 {% endfor %}
             </div>
             {% endif %}
-            {% else %}
+            {% elif request.user == author %}
             <h4 class="text-muted">You do not have any articles yet. Let's <a href="{% url 'blog:create_article' %}">create</a> some more!</h4>
             {% endif %}
 

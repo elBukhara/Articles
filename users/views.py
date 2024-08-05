@@ -1,4 +1,7 @@
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from blog.models import Article, Category, Hashtag
 from .models import User
@@ -88,4 +91,10 @@ def users_hashtag(request, author_id, hashtag_id):
     })
     
     return render(request, 'users/hashtag_chosen.html', content)
-    
+
+@login_required
+def delete_profile_picture(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    user.profile_picture = 'default/profile_photo.jpg'
+    user.save()
+    return HttpResponseRedirect(reverse('users:edit_profile'))
