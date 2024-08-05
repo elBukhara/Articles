@@ -1,0 +1,11 @@
+@media (max-width: 768px) {
+    body {
+        zoom: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    body {
+        zoom: 80%;
+    }
+}

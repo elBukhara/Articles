@@ -3,7 +3,6 @@ from django.db.models import Count
 from blog.models import Article, Category, Hashtag
 from .models import User
 
-# TODO: get articles from Author by Hashtag
 
 def get_author_data(author):
     """
@@ -73,6 +72,10 @@ def users_category(request, author_id, category_slug):
     return render(request, 'users/category_chosen.html', content)
 
 def users_hashtag(request, author_id, hashtag_id):
+    """
+    Retrieves articles by author and hashtag and renders the corresponding template.
+    For example: Articles by Author in Hashtag "France 2024"
+    """
     author = get_object_or_404(User, id=author_id)
     content = get_author_data(author)
     

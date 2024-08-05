@@ -6,53 +6,79 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-4 pe-5 mb-3">
-            <div>
-
-                <div class="bio text-center mt-2 mb-3">
-                    <img src="https://preview.colorlib.com/theme/wordify/images/person_1.jpg" class="text-center" alt="Profile Picture">
-                    <div class="card-body">
-                        <h5 class="card-title">Admin Serth</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, quidem minus. Consequatur fugit, incidunt obcaecati ipsa repellat velit nihil, hic eius eveniet pariatur assumenda dicta vero, vel rem delectus cupiditate!.</p>
-                        <a href="#" class="btn btn-primary">Visit Website</a>
+            <div class="bio text-center mt-2 mb-3">
+                <img src="{{author.profile_picture.url}}" class="text-center" alt="Profile Picture">
+                <h5 class="card-title">Admin Serth</h5>
+                <h6 class="text-muted mb-2">Moscow</h6>
+                {% if request.user == author %}
+                <a href="#" class="btn btn-outline-primary">Edit Profile</a>
+                {% else %}
+                <a href="#" class="btn btn-outline-primary">Visit Website</a>
+                {% endif %}
+                <div class="d-flex justify-content-between align-items-center mt-4 px-4">
+                    <div class="stats">
+                        <h6>Followers</h6>
+                        <span>21</span>
+                    </div>
+                    <div class="stats">
+                        <h6>Following</h6>
+                        <span>19</span>
+                    </div>
+                    <div class="stats">
+                        <h6>Articles</h6>
+                        <span>12</span>
                     </div>
                 </div>
+            </div>
 
-                {% if categories_with_article_count %}
-                <div class="sidebar-box mb-3">
-                    <h4 class="heading">Categories</h4>
-                    <ul class="categories">
-                        {% for category in categories_with_article_count %}
-                        <li>
-                            <a href="{% url 'users:users_category' author.id category.category__slug %}">
-                                {{ category.category__name }} <span>({{ category.article_count }})</span>
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
-                
-                {% if articles_in_hashtags %}
-                <div class="sidebar-box mb-3">
-                    <h4 class="heading">Tags</h4>
-                    <ul class="tags">
-                        {% for hashtag in articles_in_hashtags  %}
-                        <li>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'users:users_hashtag' author.id hashtag.id %}">{{ hashtag.name }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
+            <div class="sidebar-box mb-3">
+                <h4 class="heading">Categories</h4>
+                <ul class="categories">
+                    {% if categories_with_article_count %}
+                    {% for category in categories_with_article_count %}
+                    <li>
+                        <a href="{% url 'users:users_category' author.id category.category__slug %}">
+                            {{ category.category__name }} <span>({{ category.article_count }})</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                    {% else %}
+                    <li>
+                        <a href="#">
+                            No categories yet <span>0</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            
+            <div class="sidebar-box mb-3">
+                <h4 class="heading">Tags</h4>
+                <ul class="tags">
+                    {% if articles_in_hashtags %}
+                    {% for hashtag in articles_in_hashtags  %}
+                    <li>
+                        <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'users:users_hashtag' author.id hashtag.id %}">{{ hashtag.name }}</a>
+                    </li>
+                    {% endfor %}
+                    {% else %}
+                    <li>
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#">No Hashtags yet</a>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
+
         <div class="col-md-8">
             {% block main %}
-            
-            <h2>About Me:</h2>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam ex dolores voluptatum animi voluptatibus provident similique id accusamus aspernatur quam fuga consequatur, laboriosam laborum recusandae quis, qui vitae reprehenderit impedit? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam ex dolores voluptatum animi voluptatibus provident similique id accusamus aspernatur quam fuga consequatur, laboriosam laborum recusandae quis, qui vitae reprehenderit impedit? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam ex dolores voluptatum animi voluptatibus provident similique id accusamus aspernatur quam fuga consequatur, laboriosam laborum recusandae quis, qui vitae reprehenderit impedit?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam ex dolores voluptatum animi voluptatibus provident similique id accusamus aspernatur quam fuga consequatur, laboriosam laborum recusandae quis, qui vitae reprehenderit impedit? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam ex dolores voluptatum animi voluptatibus provident similique id accusamus aspernatur quam fuga consequatur, laboriosam laborum recusandae quis, qui vitae reprehenderit impedit? Lorem 
-            </p>
 
+            {% if author.bio %}
+            <h2>About Me:</h2>
+            <p> {{author.bio | safe}} </p>
+            {% endif %}
+
+            {% if published_articles or drafted_articles %}
             {% if published_articles %}
             <div class="mb-3">
                 <h2>My Latest Posts</h2>
@@ -95,9 +121,11 @@
                 {% endfor %}
             </div>
             {% endif %}
+            {% else %}
+            <h4 class="text-muted">You do not have any articles yet. Let's <a href="{% url 'blog:create_article' %}">create</a> some more!</h4>
+            {% endif %}
 
             {% endblock %}
-            
         </div>
     </div>
 </div>
