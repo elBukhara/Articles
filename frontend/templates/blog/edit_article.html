@@ -4,7 +4,7 @@
 
 
 {% block body %}
-<main class="container mt-5">
+<main class="container my-5">
     <h2>Edit The Article:</h2>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
@@ -47,5 +47,7 @@
 
     </form>
 </main>
+
+{% include 'partials/footer.html' %}
 
 {% endblock %}

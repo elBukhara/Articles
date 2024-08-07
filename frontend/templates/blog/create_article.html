@@ -4,7 +4,7 @@
 
 
 {% block body %}
-<main class="container mt-5">
+<main class="container my-5">
     <div class="alert alert-danger d-none" id="warning-alert" role="alert">
       You must sign in to add an article. <a href="{% url 'users:login' %}" class="alert-link">Login</a>.
     </div>
@@ -51,6 +51,8 @@
       {% endif %}
     </form>
 </main>
+
+{% include 'partials/footer.html' %}
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
