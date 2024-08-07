@@ -5,32 +5,8 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-lg-8">
-            <!-- Post content-->
-            <article>
-                <!-- Post header-->
-                <header class="mb-4">
-                    <!-- Post title-->
-                    <h1 class="fw-bolder mb-1">{{ article.title }}</h1>
-                    <!-- Post meta content-->
-                    <div class="text-muted fst-italic mb-2">Posted on {{ article.publish_date }} by {{ article.author }}</div>
-                    <!-- Post categories-->
-                    {% for hashtag in hashtags  %}
-                        <a class="badge bg-secondary text-decoration-none link-light" href="#">{{ hashtag.name }}</a>
-                    {% endfor %}
-                </header>
-                
-                {% if cover_image %}
-                <figure class="mb-4"><img class="img-fluid" src="{{ article.cover_image.url }}" alt="..." /></figure>
-                {% endif %}
-
-                <section class="mb-5">
-                    {{ article.content | safe }}
-                </section>
-            </article>
-        </div>
         <!-- Side widgets-->
-        <div class="col-lg-4">
+        <div class="col-md-4 order-md-last">
             <div class="position-sticky" style="top: 1rem;">
                 <!-- Search widget-->
                 <div class="card mb-4">
@@ -40,7 +16,7 @@
                     </div>
                 </div>
                 <!-- Categories widget-->
-                <div class="card mb-4">
+                <div class="card mb-4 side-widget">
                     <div class="card-header">Categories</div>
                     <div class="card-body">
                         <div class="row">
@@ -62,15 +38,43 @@
                     </div>
                 </div>
                 <!-- Side widget-->
-                <div class="card mb-4">
+                <div class="card mb-4 side-widget">
                     <div class="card-header">Side Widget</div>
                     <div class="card-body">
                         <p>You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</p>
-                        <a href="{% url 'blog:edit_article' article.slug %}">Edit</a>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="col-md-8">
+            <!-- Post content-->
+            <article>
+                <!-- Post header-->
+                <header class="mb-4">
+                    <!-- Post title-->
+                    <h1 class="fw-bolder mb-1">{{ article.title }} 
+                        {% if article.author %}
+                            <a class="fs-4" href="{% url 'blog:edit_article' article.slug %}">Edit</a>
+                        {% endif %}
+                    </h1>
+                    <!-- Post meta content-->
+                    <div class="text-muted fst-italic mb-2">Posted on {{ article.publish_date }} by {{ article.author }}</div>
+                    <!-- Post categories-->
+                    {% for hashtag in hashtags  %}
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#">{{ hashtag.name }}</a>
+                    {% endfor %}
+                </header>
+                
+                {% if cover_image %}
+                <figure class="mb-4"><img class="img-fluid" src="{{ article.cover_image.url }}" alt="..." /></figure>
+                {% endif %}
+
+                <section class="mb-5">
+                    {{ article.content | safe }}
+                </section>
+            </article>
+        </div>        
     </div>
 </div>
 

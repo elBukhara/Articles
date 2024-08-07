@@ -42,7 +42,9 @@
         </div>
       </div>
       
-      <button type="submit" class="btn btn-success">Save</button>
+      <button type="submit" class="btn btn-success d-inline">Save</button>
+      <a href="{% url 'blog:delete_article' article.slug %}" class="btn btn-danger">Delete Article</a>
+
     </form>
 </main>
 

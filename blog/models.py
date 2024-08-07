@@ -3,6 +3,7 @@ import random
 from django.db import models
 from users.models import User
 from django.template.defaultfilters import slugify
+from django.core.exceptions import ObjectDoesNotExist
 
 from ckeditor_uploader.fields import RichTextUploadingField
 
@@ -94,3 +95,12 @@ class Article(models.Model):
             return random.choice(banger_articles[:3]) if banger_articles else None
         except IndexError:
             return None
+    
+    @classmethod
+    def delete_article(cls, slug):
+        try:
+            article = cls.objects.get(slug=slug)
+            article.delete()
+            return True
+        except ObjectDoesNotExist:
+            return False

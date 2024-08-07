@@ -1,5 +1,6 @@
 from django import forms
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from . models import Article, Hashtag
 
@@ -53,6 +54,7 @@ def create_article(request):
 
     return render(request, 'blog/create_article.html', {'form': form})
 
+@login_required
 def edit_article(request, slug):
     article = get_object_or_404(Article, slug=slug)
     
@@ -73,4 +75,10 @@ def edit_article(request, slug):
     else:
         form = ArticleForm(instance=article)
 
-    return render(request, 'blog/edit_article.html', {'form': form})
+    return render(request, 'blog/edit_article.html', {'form': form, "article": article})
+
+@login_required
+def delete_article(request, slug):
+    if Article.delete_article(slug=slug):
+        print(True)
+        return redirect('users:profile', user_id=request.user.id)
