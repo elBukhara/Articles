@@ -17,7 +17,7 @@
         {% for i in articles_with_default_cover.paginator.page_range %}
             {% if i == articles_with_default_cover.number %}
                 <li class="page-item active" aria-current="page">
-                    <span class="page-link scrollable-link">{{ i }}</span>
+                    <span class="page-link scrollable-link" style="pointer-events: none">{{ i }}</span>
                 </li>
             {% elif i > articles_with_default_cover.number|add:'-2' and i < articles_with_default_cover.number|add:'2' %}
                 <li class="page-item"><a class="page-link scrollable-link" href="?page_default_cover={{ i }}">{{ i }}</a></li>

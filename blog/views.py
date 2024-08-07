@@ -7,6 +7,9 @@ def articles_view(request):
     
     articles_with_own_cover = Article.articles_with_own_cover_image().filter(status='published')
     articles_with_own_cover = articles_with_own_cover.exclude(id=banger_article.id)
+    articles_with_own_cover = articles_with_own_cover.exclude(type='carousel')
+    
+    articles_with_carousel = Article.objects.filter(type='carousel')[:3]
     
     p1 = Paginator(articles_with_own_cover, 2)
     page_own_cover = request.GET.get('page_own_cover')
@@ -27,7 +30,8 @@ def articles_view(request):
         'articles_with_own_cover': articles_with_own_cover,
         'articles_with_default_cover': articles_with_default_cover,
         'first_half_categories': first_half_categories,
-        'second_half_categories': second_half_categories
+        'second_half_categories': second_half_categories,
+        'articles_with_carousel': articles_with_carousel
     }
     
     return render(request, 'blog/articles.html', content)

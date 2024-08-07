@@ -43,12 +43,17 @@ class Article(models.Model):
         ('draft', 'Draft'),
         ('published', 'Published'),
     ]
+    TYPES_CHOICES = [
+        ('none', 'None'),
+        ('carousel', 'Carousel'),
+    ]
     
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True, null=False)
     content = RichTextUploadingField(blank=True, null=True)
     publish_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    type = models.CharField(max_length=10, choices=TYPES_CHOICES, default='none')
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
     cover_image = models.ImageField(upload_to='cover_image', blank=True, null=True, default='default/cover.jpg')
     meta_description = models.TextField(blank=False, null=False, default='')
@@ -95,6 +100,7 @@ class Article(models.Model):
         """
         try:
             articles = cls.objects.exclude(cover_image='default/cover.jpg')
+            articles = articles.exclude(type='carousel')
             
             banger_articles = [article for article in articles if len(article.meta_description) > 100 and article.content and len(article.content.strip()) > 1000]
             
