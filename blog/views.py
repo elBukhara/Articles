@@ -18,10 +18,16 @@ def articles_view(request):
     page_default_cover = request.GET.get('page_default_cover')
     articles_with_default_cover = p2.get_page(page_default_cover)
     
+    categories = Category.get_random()
+    first_half_categories = categories[:(len(categories)//2)]
+    second_half_categories = categories[(len(categories)//2):]
+    
     content = {
         'banger_article': banger_article,
         'articles_with_own_cover': articles_with_own_cover,
-        'articles_with_default_cover': articles_with_default_cover
+        'articles_with_default_cover': articles_with_default_cover,
+        'first_half_categories': first_half_categories,
+        'second_half_categories': second_half_categories
     }
     
     return render(request, 'blog/articles.html', content)
@@ -35,20 +41,26 @@ def article_view(request, slug):
         cover_image = article.cover_image
         
     hashtags = article.hashtags.all()
-    print(hashtags)
+    categories = Category.get_random()
+    first_half_categories = categories[:(len(categories)//2)]
+    second_half_categories = categories[(len(categories)//2):]
     
     content = {
         'article': article,
         'hashtags': hashtags,
-        'cover_image': cover_image
+        'cover_image': cover_image,
+        'first_half_categories': first_half_categories,
+        'second_half_categories': second_half_categories
     }
     
     return render(request, 'blog/article.html', content)
 
 def category_list(request):
     categories = Category.objects.all()
+    random_article = Article.objects.order_by('?').first()
     content = {
-        'categories': categories
+        'categories': categories,
+        'article': random_article
     }
     
     return render(request, 'blog/category_list.html', content)
@@ -57,11 +69,19 @@ def category_view(request, slug):
     category = Category.objects.get(slug=slug)
     articles_with_own_cover = Article.articles_with_own_cover_image().filter(category=category, status='published')
     articles_with_default_cover = Article.articles_with_default_cover_image().filter(category=category, status='published')
+    random_article = Article.objects.order_by('?').first()
+    
+    categories = Category.get_random()
+    first_half_categories = categories[:(len(categories)//2)]
+    second_half_categories = categories[(len(categories)//2):]
     
     content = {
         'category': category,
         'articles_with_own_cover': articles_with_own_cover,
         'articles_with_default_cover': articles_with_default_cover,
+        'article': random_article,
+        'first_half_categories': first_half_categories,
+        'second_half_categories': second_half_categories
     }
     
     return render(request, 'blog/category.html', content)

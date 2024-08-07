@@ -5,6 +5,9 @@
 
 {% block body %}
 <main class="container mt-5">
+    <div class="alert alert-danger d-none" id="warning-alert" role="alert">
+      You must sign in to add an article. <a href="{% url 'users:login' %}" class="alert-link">Login</a>.
+    </div>
     <h2>Add New Article</h2>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
@@ -41,9 +44,28 @@
           </p>
         </div>
       </div>
-      
+      {% if request.user.is_authenticated %}
       <button type="submit" class="btn btn-success">Save</button>
+      {% else %}
+      <a href="#" class="btn btn-success" id="button-alert">Save</a>
+      {% endif %}
     </form>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.querySelector('#button-alert') 
+    button.addEventListener('click', () => {
+      setTimeout(closeAlert, 8000)
+
+      const warning = document.querySelector('#warning-alert')
+      warning.className = 'alert alert-danger d-block';
+
+      function closeAlert() {
+        warning.className = 'alert alert-danger d-none';
+      }
+    })
+  })
+</script>
 
 {% endblock %}

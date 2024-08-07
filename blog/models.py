@@ -29,6 +29,13 @@ class Category(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
+    
+    @classmethod
+    def get_random(cls):
+        try:
+            return cls.objects.order_by('?')[:6]
+        except ObjectDoesNotExist:
+            return None
             
 
 class Article(models.Model):

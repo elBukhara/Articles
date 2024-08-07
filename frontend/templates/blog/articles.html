@@ -21,29 +21,29 @@
                 </div>
                 <!-- Categories widget-->
                 <div class="card mb-4">
-                    <div class="card-header">Categories</div>
+                    <div class="card-header">Suggested Categories</div>
                     <div class="card-body">
                         <div class="row">
+                            {% for category in first_half_categories %}
                             <div class="col-sm-6">
                                 <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">Web Design</a></li>
-                                    <li><a href="#!">HTML</a></li>
-                                    <li><a href="#!">Freebies</a></li>
+                                    <li><a href="{% url 'blog:category' category.slug %}">{{ category }}</a></li>
                                 </ul>
                             </div>
+                            {% endfor %}
+                            {% for category in second_half_categories %}
                             <div class="col-sm-6">
                                 <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">JavaScript</a></li>
-                                    <li><a href="#!">CSS</a></li>
-                                    <li><a href="#!">Tutorials</a></li>
+                                    <li><a href="{% url 'blog:category' category.slug %}">{{ category }}</a></li>
                                 </ul>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
                 <!-- Side widget-->
                 <div class="card mb-4 side-widget">
-                    <div class="card-header">Side Widget</div>
+                    <div class="card-header">Might Be Interesting</div>
                     <div class="card-body">
                         {% for article in articles_with_default_cover %}
                             <a href="{% url 'blog:article' article.slug %}">{{ article.title }}</p>
