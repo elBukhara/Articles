@@ -24,20 +24,20 @@
                     <div class="card-header">Suggested Categories</div>
                     <div class="card-body">
                         <div class="row">
-                            {% for category in first_half_categories %}
-                            <div class="col-sm-6">
+                            <div class="col-6">
                                 <ul class="list-unstyled mb-0">
+                                    {% for category in first_half_categories %}
                                     <li><a href="{% url 'blog:category' category.slug %}">{{ category }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
-                            {% endfor %}
-                            {% for category in second_half_categories %}
-                            <div class="col-sm-6">
+                            <div class="col-6">
                                 <ul class="list-unstyled mb-0">
+                                    {% for category in second_half_categories %}
                                     <li><a href="{% url 'blog:category' category.slug %}">{{ category }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
-                            {% endfor %}
                         </div>
                     </div>
                 </div>

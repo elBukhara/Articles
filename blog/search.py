@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.db.models import Q
 
 from django.shortcuts import render
-from . models import Article
+from . models import Article, Category
 from . views import article_view
 
 
@@ -24,10 +24,16 @@ def search_box(request):
         articles_found_in_title = Article.objects.none()
         articles_found_in_content = Article.objects.none()
     
+    categories = Category.get_random()
+    first_half_categories = categories[:(len(categories)//2)]
+    second_half_categories = categories[(len(categories)//2):]
+    
     content = {
         'articles_found_in_title': articles_found_in_title,
         'articles_found_in_content': articles_found_in_content,
-        'query': query
+        'query': query,
+        'first_half_categories': first_half_categories,
+        'second_half_categories': second_half_categories
     }
         
     return render(request, 'blog/results.html', content)

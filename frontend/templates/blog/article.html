@@ -3,7 +3,7 @@
 
 {% block body %}
 
-<div class="container mt-5">
+<div class="container mt-4">
     <div class="row">
         <!-- Side widgets-->
         <div class="col-md-4 order-md-last">
@@ -20,20 +20,20 @@
                     <div class="card-header">Suggested Categories</div>
                     <div class="card-body">
                         <div class="row">
-                            {% for category in first_half_categories %}
-                            <div class="col-sm-6">
+                            <div class="col-6">
                                 <ul class="list-unstyled mb-0">
+                                    {% for category in first_half_categories %}
                                     <li><a href="{% url 'blog:category' category.slug %}">{{ category }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
-                            {% endfor %}
-                            {% for category in second_half_categories %}
-                            <div class="col-sm-6">
+                            <div class="col-6">
                                 <ul class="list-unstyled mb-0">
+                                    {% for category in second_half_categories %}
                                     <li><a href="{% url 'blog:category' category.slug %}">{{ category }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
-                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                     <div class="text-muted fst-italic mb-2">Posted on {{ article.publish_date }} by <a href="{% url 'users:profile' article.author.id %}">{{ article.author }}</a></div>
                     <!-- Post categories-->
                     {% for hashtag in hashtags  %}
-                        <a class="badge bg-secondary text-decoration-none link-light" href="#">{{ hashtag.name }}</a>
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#">#{{ hashtag.name }}</a>
                     {% endfor %}
                 </header>
                 

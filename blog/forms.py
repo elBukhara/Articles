@@ -16,7 +16,7 @@ class ArticleForm(forms.ModelForm):
             'content': forms.Textarea(attrs={'cols': 80, 'rows': 30, 'class': 'form-control'}),
             'cover_image': forms.FileInput(attrs={'class': 'form-control'}),
             'meta_description': forms.Textarea(attrs={'cols': 80, 'rows': 3, 'class': 'form-control'}),
-            'keywords': forms.Textarea(attrs={'cols': 80, 'rows': 3, 'class': 'form-control'}),
+            'keywords': forms.Textarea(attrs={'cols': 80, 'rows': 3, 'class': 'form-control', 'placeholder': 'Keywords help searching engines find your article'}),
             'status': forms.Select(attrs={'class': 'form-control'})
         }
     

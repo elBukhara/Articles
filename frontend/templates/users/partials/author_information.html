@@ -1,6 +1,6 @@
 <div class="bio text-center mt-2 mb-3">
     <img src="{{author.profile_picture.url}}" class="text-center" alt="Profile Picture">
-    <h5 class="card-title">Admin Serth</h5>
+    <h5 class="card-title" style="text-transform: capitalize">{{ author}}</h5>
     
     {% if author.location %}
     <h6 class="text-muted mb-2">{{ author.location}}</h6>
@@ -59,7 +59,7 @@
         {% if articles_in_hashtags %}
         {% for hashtag in articles_in_hashtags  %}
         <li>
-            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'users:users_hashtag' author.id hashtag.id %}">{{ hashtag.name }}</a>
+            <a class="badge bg-secondary text-decoration-none link-light" href="{% url 'users:users_hashtag' author.id hashtag.id %}">#{{ hashtag.name }}</a>
         </li>
         {% endfor %}
         {% else %}
