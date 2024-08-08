@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% load static %}
 
+{% block title %}Registration{% endblock  %}
+
+
 {% block body %}
 
 {% if message %}
@@ -31,7 +34,7 @@
           </div>
 
           <div class="form-floating">
-            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" minlength="8">
             <label for="floatingPassword">Password</label>
           </div>
 
