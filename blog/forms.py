@@ -11,11 +11,11 @@ class ArticleForm(forms.ModelForm):
         model = Article
         fields = ['title', 'content', 'category', 'cover_image', 'meta_description', 'keywords', 'status']
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control', 'minlength': 10, 'maxlength': 100, 'placeholder': 'Article Title'}),
             'category': forms.Select(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'cols': 80, 'rows': 30, 'class': 'form-control'}),
             'cover_image': forms.FileInput(attrs={'class': 'form-control'}),
-            'meta_description': forms.Textarea(attrs={'cols': 80, 'rows': 3, 'class': 'form-control'}),
+            'meta_description': forms.Textarea(attrs={'cols': 80, 'rows': 3, 'class': 'form-control', 'minlength': 50, 'maxlength': 400, 'placeholder': 'Readers will be interested by this article with this description. 50-400 characters'}),
             'keywords': forms.Textarea(attrs={'cols': 80, 'rows': 3, 'class': 'form-control', 'placeholder': 'Keywords help searching engines find your article'}),
             'status': forms.Select(attrs={'class': 'form-control'})
         }
