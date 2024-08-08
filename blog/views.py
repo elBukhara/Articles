@@ -6,7 +6,8 @@ def articles_view(request):
     banger_article = Article.get_banger_article()
     
     articles_with_own_cover = Article.articles_with_own_cover_image().filter(status='published')
-    articles_with_own_cover = articles_with_own_cover.exclude(id=banger_article.id)
+    if banger_article:
+        articles_with_own_cover = articles_with_own_cover.exclude(id=banger_article.id)
     articles_with_own_cover = articles_with_own_cover.exclude(type='carousel')
     
     articles_with_carousel = Article.objects.filter(type='carousel')[:3]
@@ -31,7 +32,7 @@ def articles_view(request):
         'articles_with_default_cover': articles_with_default_cover,
         'first_half_categories': first_half_categories,
         'second_half_categories': second_half_categories,
-        'articles_with_carousel': articles_with_carousel
+        'articles_with_carousel': articles_with_carousel if len(articles_with_carousel) == 3 else None
     }
     
     return render(request, 'blog/articles.html', content)
