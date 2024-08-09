@@ -36,11 +36,11 @@
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 {% for category in categories %}
                 <div class="col">
-                  <div class="card">
-                    <img src="{{ category.image.url }}" class="card-img-top" alt="{{ category.name }}">
+                  <div class="card own-card h-100">
+                    <img src="{{ category.image.url }}" class="card-img-top img-fluid" alt="{{ category.name }}">
                     <div class="card-body">
                       <h5 class="card-title" id="{{ category.name }}">{{ category.name }}</h5>
-                      <p class="card-text">{{ category.mate_description }}</p>
+                      <p class="card-text">{{ category.meta_description }}</p>
                       <a href="{% url 'blog:category' category.slug %}" class="btn btn-primary">View</a>
                     </div>
                   </div>

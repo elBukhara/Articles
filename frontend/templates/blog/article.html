@@ -62,7 +62,14 @@
                     {% endif %}
                     </h1>
                     <!-- Post meta content-->
-                    <div class="text-muted fst-italic mb-2">Posted on {{ article.publish_date }} by <a href="{% url 'users:profile' article.author.id %}">{{ article.author }}</a></div>
+                    <div class="text-muted fst-italic mb-2">
+                        {% if article.category %}
+                        <a href="{% url 'blog:category' article.category.slug %}">{{ article.category }}</a>: 
+                        Posted on {{ article.publish_date }} by <a href="{% url 'users:profile' article.author.id %}">{{ article.author }}</a>
+                        {% else %}
+                        Posted on {{ article.publish_date }} by <a href="{% url 'users:profile' article.author.id %}">{{ article.author }}</a>
+                        {% endif %}
+                    </div>
                     <!-- Post categories-->
                     {% for hashtag in hashtags  %}
                         <a class="badge bg-secondary text-decoration-none link-light" href="#">#{{ hashtag.name }}</a>

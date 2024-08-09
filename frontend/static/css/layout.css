@@ -2,6 +2,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+.own-card img {
+  height: 14rem; 
+  object-fit: cover;
+}
 
 @media (max-width: 768px) {
   body {
