@@ -14,6 +14,7 @@ urlpatterns = [
     path('create/', forms.create_article, name='create_article'),
     path('edit/<slug:slug>', forms.edit_article, name='edit_article'),
     path('delete/<slug:slug>', forms.delete_article, name='delete_article'),
+    path('delete_cover_image/<int:article_id>', forms.delete_cover_image, name='delete_cover_image'),
     
     path('search', search.search_box, name='search'),
     path('search_suggestions/', search.search_suggestions, name='search_suggestions'),

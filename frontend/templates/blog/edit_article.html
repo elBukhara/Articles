@@ -34,6 +34,9 @@
           <p class="form-group">
             {{ form.cover_image.label_tag }} {{ form.cover_image }}
           </p>
+          {% if article.cover_image != 'default/cover.jpg' %}
+            <a href="{% url 'blog:delete_cover_image' article.id %}" class="d-block mb-3">Delete cover image</a>
+          {% endif %}
           <p class="form-group">
             {{ form.status.label_tag }} {{ form.status }}
           </p>

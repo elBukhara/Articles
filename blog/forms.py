@@ -1,7 +1,8 @@
 from django import forms
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from . models import Article, Hashtag
 
 class ArticleForm(forms.ModelForm):
@@ -80,5 +81,11 @@ def edit_article(request, slug):
 @login_required
 def delete_article(request, slug):
     if Article.delete_article(slug=slug):
-        print(True)
         return redirect('users:profile', user_id=request.user.id)
+
+@login_required
+def delete_cover_image(request, article_id):
+    article = get_object_or_404(Article, id=article_id)
+    article.cover_image = 'default/cover.jpg'
+    article.save()
+    return HttpResponseRedirect(reverse('blog:edit_article', args=[article.slug]))
