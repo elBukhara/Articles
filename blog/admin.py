@@ -3,7 +3,7 @@ from django.contrib.admin import ModelAdmin
 from .models import Article, Category, Hashtag
 
 class ArticleAdmin(ModelAdmin):
-    list_display = ['title', 'status', 'type', 'category', 'publish_date', 'cover_image']
+    list_display = ['title', 'author', 'status', 'type', 'category', 'publish_date', 'cover_image']
     filter_horizontal = ("hashtags",)
     # filter_horizontal = ("category",)
     # fields = ['title', 'content', 'publish_date', 'status', 'category', 'cover_image', 'meta_description', 'keywords', 'author']

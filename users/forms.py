@@ -23,7 +23,9 @@ def edit_profile(request):
             if not form.cleaned_data['profile_picture']:
                 form.instance.profile_picture = 'default/profile_photo.jpg'
             form.save()
-            return redirect('users:profile', request.user.id)  # Redirect to the appropriate page after saving
+            return redirect('users:profile', user_id = request.user.id)  # Redirect to the appropriate page after saving
+        else:
+            print(form.errors)
     else:
         form = UserProfileForm(instance=request.user)
     return render(request, 'users/edit_profile.html', {'form': form, 'user': request.user})
