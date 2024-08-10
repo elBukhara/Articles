@@ -1,7 +1,13 @@
-.env
 .venv
-db.sqlite3
-media
-__pycache__
 .vs
 .idea
+.env
+
+__pycache__
+db.sqlite3
+/static
+
+media/article_uploads
+media/category_image
+media/cover_image
+media/profile_pictures
