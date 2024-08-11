@@ -31,6 +31,21 @@ The project supports both development (`dev.py`) and production (`prod.py`) conf
 - Development settings: `main/settings/dev.py`.
 - Production settings: `main/settings/prod.py`.
 
+## .env File
+
+Create .env file in the root directory and fill it with appropriate data as listed in the .env.template:
+
+    ADMIN_URL='your_url/'
+    SECRET_KEY='key'
+    ALLOWED_HOSTS=['*']
+
+    DB_ENGINE_NAME='mysql'
+    DB_NAME='name'
+    DB_USER='user'
+    DB_PASSWORD='password'
+    DB_HOST='host'
+    DB_PORT='port'
+
 ## Running the Project
 
 To start the development server with migrations applied:
