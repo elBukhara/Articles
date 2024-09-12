@@ -2,7 +2,11 @@
     <div class="input-group">
         <input class="form-control" type="text" name="q" id="search" list="search-suggestions"
         placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" autocomplete="off"/>
-        <datalist id="search-suggestions"></datalist>
+        <datalist id="search-suggestions">
+            <select name="suggestions" id="search-suggestions-select">
+
+            </select>
+        </datalist>
         
         <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
     </div>

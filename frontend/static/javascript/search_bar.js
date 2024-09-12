@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function showSuggestions() {
     const searchInput = document.getElementById('search');
-    const suggestionsList = document.getElementById('search-suggestions');
+    const suggestionsList = document.getElementById('search-suggestions-select');
 
     let debounceTimer;
 
