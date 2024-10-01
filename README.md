@@ -1,6 +1,6 @@
 # Delicioussy
 
-![Image](https://github.com/me50/elBukhara/blob/web50/projects/2020/x/capstone/image.png)
+![site_cover](https://github.com/user-attachments/assets/9c8c9465-02d5-4a20-8915-352332eca277)
 
 ## Articles Project Setup Guide
 
