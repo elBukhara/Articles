@@ -1,14 +1,18 @@
-# Articles Project Setup Guide
+# Delicioussy
 
-## Introduction
+![Image](https://github.com/me50/elBukhara/blob/web50/projects/2020/x/capstone/image.png)
+
+## Articles Project Setup Guide
+
+### Introduction
 
 Welcome to the Articles project! This guide will help you set up the environment, understand the project structure, and get started with development.
 
-## Prerequisites
+### Prerequisites
 
 Ensure you have Python installed on your system. The project requires Python 3.x.
 
-## Getting Started
+### Getting Started
 
     git clone https://github.com/elBukhara/Articles
     cd Articles
@@ -19,7 +23,7 @@ Ensure you have Python installed on your system. The project requires Python 3.x
     pip3 install -r requirements.txt
     cd app
 
-## Django Structure
+### Django Structure
 
 All Django's apps are located in the folder /app
 
@@ -27,14 +31,14 @@ All Django's apps are located in the folder /app
 - `blog/`: Application for managing articles.
 - `users/`: Application for user management.
 
-## Environment Configuration
+### Environment Configuration
 
 The project supports both development (`dev.py`) and production (`prod.py`) configurations.
 
 - Development settings: `main/settings/dev.py`.
 - Production settings: `main/settings/prod.py`.
 
-## .env File
+### .env File
 
 Create .env file in the folder ``/app`` and fill it with appropriate data as listed in the .env.template:
 
@@ -49,14 +53,14 @@ Create .env file in the folder ``/app`` and fill it with appropriate data as lis
     DB_HOST='host'
     DB_PORT='port'
 
-## Running the Project
+### Running the Project
 
 To start the development server with migrations applied:
 
     python manage.py migrate --settings=main.settings.dev
     python manage.py runserver --settings=main.settings.dev
 
-## Loading Example Data
+### Loading Example Data
 
 For a quicker setup, you can load example data. Ensure the `.example/data.json` and `media/` folders are placed correctly in the project root.
 
