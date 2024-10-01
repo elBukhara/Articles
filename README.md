@@ -17,8 +17,11 @@ Ensure you have Python installed on your system. The project requires Python 3.x
     .venv/Scripts/activate
 
     pip3 install -r requirements.txt
+    cd app
 
 ## Django Structure
+
+All Django's apps are located in the folder /app
 
 - `main/`: Django project root.
 - `blog/`: Application for managing articles.
@@ -33,7 +36,7 @@ The project supports both development (`dev.py`) and production (`prod.py`) conf
 
 ## .env File
 
-Create .env file in the root directory and fill it with appropriate data as listed in the .env.template:
+Create .env file in the folder ``/app`` and fill it with appropriate data as listed in the .env.template:
 
     ADMIN_URL='your_url/'
     SECRET_KEY='key'
