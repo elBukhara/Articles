@@ -1,6 +1,6 @@
-# Delicioussy
+# WordWave
 
-![site_cover](https://github.com/user-attachments/assets/9c8c9465-02d5-4a20-8915-352332eca277)
+![site-cover-articles](https://github.com/user-attachments/assets/1a258176-a4b8-4c74-ad28-dc6e79a54d05)
 
 ## Articles Project Setup Guide
 
