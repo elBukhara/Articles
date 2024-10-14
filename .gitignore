@@ -5,7 +5,7 @@
 
 __pycache__
 db.sqlite3
-/static
+app/static
 
 app/media/article_uploads
 app/media/category_image
